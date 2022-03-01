@@ -81,27 +81,21 @@ public class EmailReceiver {
 
             Message[] messages = folderInbox.getMessages();
             arrMessage.add(messages);
-            folderInbox.close();
 
             folderInbox = store.getFolder("INBOX");
             folderInbox.open(Folder.HOLDS_MESSAGES);
             messages = folderInbox.getMessages();
             arrMessage.add(messages);
-            folderInbox.close();
 
             folderInbox = store.getFolder("INBOX");
             folderInbox.open(Folder.READ_WRITE);
             messages = folderInbox.getMessages();
             arrMessage.add(messages);
-            folderInbox.close();
 
             folderInbox = store.getFolder("INBOX");
             folderInbox.open(Folder.HOLDS_FOLDERS);
             messages = folderInbox.getMessages();
             arrMessage.add(messages);
-
-
-            ////////////////////////////////
 
 
             // opens the inbox folder
@@ -128,7 +122,6 @@ public class EmailReceiver {
                     Message msgGtMessageCount = folderInbox.getMessage(folderInbox.getMessageCount());
                     Address[] in = msgGtMessageCount.getFrom();
 
-                    System.out.println(contentType.toLowerCase());
                     if (contentType.toLowerCase().contains("text/plain")
                             || contentType.toLowerCase().contains("text/html")) {
                         try {
@@ -136,7 +129,7 @@ public class EmailReceiver {
                             if (content != null) {
                                 String plainText = Jsoup.parse(content.toString()).wholeText();
 
-                                    messageContent = plainText;
+                                messageContent = plainText;
 
                             }
                         } catch (Exception ex) {
@@ -152,7 +145,7 @@ public class EmailReceiver {
                             Object content = bp.getContent();
                             String plainText = Jsoup.parse(content.toString()).text();
                             if (content != null) {
-                                 plainText = Jsoup.parse(content.toString()).wholeText();
+                                plainText = Jsoup.parse(content.toString()).wholeText();
 
                                 messageContent = plainText;
 

@@ -1,0 +1,24 @@
+
+<Enviorment>
+    <!--Time out -->
+    <timeOut>5</timeOut>
+
+    <!--web -->
+    <platformName>WEB</platformName>
+    <browser>chrome</browser>
+    <url>https://github.com/LeviBekerman/zimProject/blob/main/src/main/java/Mail/EmailReceiver.java</url>
+    <defaultUrl>http://localhost:3000/?orgId=1</defaultUrl>
+
+    <url>https://openweathermap.org/</url>
+    <defaultUrl>https://openweathermap.org/</defaultUrl>
+    <ImegeRepo>C://Automation//finalProjects//ImageRepository//</ImegeRepo>
+
+
+    <!-- Authorization-->
+    <UserName>admin</UserName>
+    <Password>admin</Password>
+
+
+
+
+</Enviorment>

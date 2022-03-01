@@ -31,7 +31,6 @@ public class Listeners extends CommonOps implements ITestListener {
     public void onTestFailure(ITestResult test)
     {
         System.out.println("---------test name:" + test.getName() + " fail-----------");
-        if (!platform.toUpperCase(Locale.ROOT).equals("restAPI")) {
             saveScreenShot();
             try {
                 MonteScreenRecorder.stopRecord();
@@ -39,7 +38,7 @@ public class Listeners extends CommonOps implements ITestListener {
                 e.printStackTrace();
             }
         }
-    }
+
 
     public void onTestSkipped(ITestResult teat)
     {
@@ -55,7 +54,7 @@ public class Listeners extends CommonOps implements ITestListener {
     public void onTestSuccess(ITestResult test)
     {
         System.out.println("---------test name:" + test.getName() + " pass-----------");
-        if (!platform.toUpperCase(Locale.ROOT).equals("restAPI")) {
+
             try {
                 MonteScreenRecorder.stopRecord();
             } catch (Exception e) {
@@ -69,7 +68,7 @@ public class Listeners extends CommonOps implements ITestListener {
                 System.out.println("delete fail");
             }
         }
-    }
+
 
     @Attachment(value = "screen shot", type = "image")
     public static byte[] saveScreenShot()

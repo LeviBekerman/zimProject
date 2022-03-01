@@ -27,7 +27,7 @@ public class CommonOps extends Base {
 
 
     @BeforeTest
-    public static void startSessions(String platformName, String UDID, String APP_PACKAGE, String APP_ACTIVITY) {
+    public static void startSessions() {
         initBrowser(reedFromXml("browser", 0));
         softAssert = new SoftAssert();
     }
@@ -44,25 +44,19 @@ public class CommonOps extends Base {
         SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         str_testName = method.getName() + "_" + now.toString().replace("-", "_").replace(":", "_").replace(".", "_");
-        if (!platform.toUpperCase(Locale.ROOT).equals("RESTAPI")) {
             try {
                 MonteScreenRecorder.startRecord(str_testName);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
+
     }
 
     @AfterTest
     public static void afterSessions () {
         //ManageDB.closeConnection();
-        if (!platform.equalsIgnoreCase("RESTAPI")) {
-            if (platform.equalsIgnoreCase("WEB")){
-                driver.quit();
-            }
-        } else {
 
-        }
+                driver.quit();
     }
 
     public static void initBrowser (String browser){

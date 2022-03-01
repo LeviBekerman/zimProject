@@ -2,8 +2,9 @@ import Mail.EmailReceiver;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
+
 @Listeners(Utilities.Listeners.class)
-public class readMail {
+public class readMail extends Utilities.CommonOps {
 
     @Test
     public static void readMail() {
