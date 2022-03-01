@@ -1,4 +1,4 @@
-package Mail;
+package extensions.Mail;
 
 import org.jsoup.Jsoup;
 

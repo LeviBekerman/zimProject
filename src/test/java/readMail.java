@@ -1,4 +1,4 @@
-import Mail.EmailReceiver;
+import extensions.Mail.EmailReceiver;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
