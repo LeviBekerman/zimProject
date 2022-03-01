@@ -7,13 +7,7 @@ import org.testng.annotations.Test;
 public class readMail extends Utilities.CommonOps {
 
     @Test
-    public static void readMail() {
-        String userName = "levitzchake@gmail.com";
-        String password = "0525234109levi";
-
-        // Coma separate validation
-        String validation = "Vayman Barak,Log-On Software";
-        int resultLimit = 2;
+    public static void readMail(String userName, String password, String validation, int resultLimit) {
         EmailReceiver receiver = new EmailReceiver();
         receiver.downloadEmails(userName, password, validation, resultLimit);
     }
