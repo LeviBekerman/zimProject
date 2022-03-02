@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Suite" parallel="false">
+    <parameter name="platformName" value=""></parameter>
+    <parameter name="userName" value=""></parameter>
+    <parameter name="password" value=""></parameter>
+    <parameter name="validation" value=""></parameter>
+    <parameter name="resultLimit" value=""></parameter>
+
+    <test name="Test">
+        <classes>
+            <class name="readMail">
+                <methods>
+                    <include name="readMail"></include>
+                </methods>
+            </class>
+        </classes>
+    </test> <!-- Test -->
+</suite> <!-- Suite -->
+
+

@@ -10,7 +10,7 @@ public class html_tables extends pageObjects.html_tables {
     public static void veifyValuesFromExel() throws Exception {
         ArrayList<Map<String, String>> ARRreadFromExel = extensions.readFromExcel.readFromExcelFunction("C:\\Automation\\ZIMJobInterview\\testData\\html_tables.xlsx", extensions.readFromExcel.getFieldsName("C:\\Automation\\ZIMJobInterview\\testData\\html_tables.xlsx").size() - 1);
         for (int a = 0; a< ARRreadFromExel.size() - 1;a++) {
-            System.out.println("a="  + a);
+
             /*
              * WebElement table, int searchColumn, String searchText, int returnColumnText, String expectedText
              */

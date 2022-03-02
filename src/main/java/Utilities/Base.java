@@ -16,7 +16,7 @@ public class Base {
     protected static Actions action;
     protected static SoftAssert softAssert;
     protected static String str_testName;
-    protected static String platform = "";
+    protected static String platform;
 
 
     // Page object -Web

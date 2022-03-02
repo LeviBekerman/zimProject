@@ -8,10 +8,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
+import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 import org.w3c.dom.Document;
 
@@ -29,9 +27,13 @@ public class CommonOps extends Base {
 
 
     @BeforeTest
-    public static void startSessions() {
-        initBrowser(reedFromXml("browser", 0));
-       // softAssert = new SoftAssert();
+    @Parameters({"platformName"})
+    public static void startSessions(String platformName) {
+        platform = platformName;
+        if (platform.equalsIgnoreCase("WEB")) {
+            initBrowser(reedFromXml("browser", 0));
+        }
+        softAssert = new SoftAssert();
     }
 
 
@@ -50,9 +52,9 @@ public class CommonOps extends Base {
 
     @AfterTest
     public static void afterSessions() {
-        //ManageDB.closeConnection();
-
-        driver.quit();
+        if (platform.equalsIgnoreCase("WEB")) {
+            driver.quit();
+        }
     }
 
     public static void initBrowser(String browser) {

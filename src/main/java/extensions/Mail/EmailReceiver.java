@@ -52,7 +52,7 @@ public class EmailReceiver {
      * @param password
      * @param resultsLimit
      */
-    public void downloadEmails(
+    public int downloadEmails(
             String userName, String password, String condition, int resultsLimit) {
 
         // for POP3
@@ -68,6 +68,7 @@ public class EmailReceiver {
         Properties properties = getServerProperties(protocol, host, port);
         Session session = Session.getDefaultInstance(properties);
 
+        int resultsFlag = 0;
         try {
             // connects to the message store
             Store store = session.getStore(protocol);
@@ -101,7 +102,6 @@ public class EmailReceiver {
             // opens the inbox folder
 
 
-            int resultsFlag = 0;
             for (int x = arrMessage.size() - 1; x > 0; x--) {
                 for (int i = messages.length - 1; i > 0; i--) {
                     boolean isValid = false;
@@ -214,7 +214,7 @@ public class EmailReceiver {
             System.out.println("Could not connect to the message store");
             ex.printStackTrace();
         }
-
+return resultsFlag;
     }
 
     /**

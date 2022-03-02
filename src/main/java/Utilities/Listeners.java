@@ -6,12 +6,10 @@ import org.openqa.selenium.TakesScreenshot;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
-
 import java.io.File;
 import java.util.Locale;
 
-public class Listeners extends CommonOps implements ITestListener {
-
+public class Listeners extends  CommonOps implements ITestListener {
 
     public void onFinish(ITestContext arg0)
     {
@@ -31,6 +29,9 @@ public class Listeners extends CommonOps implements ITestListener {
     public void onTestFailure(ITestResult test)
     {
         System.out.println("---------test name:" + test.getName() + " fail-----------");
+        System.out.println(platform);
+        System.out.println(platform.toUpperCase(Locale.ROOT));
+        if (platform.toUpperCase(Locale.ROOT).equals("WEB")) {
             saveScreenShot();
             try {
                 MonteScreenRecorder.stopRecord();
@@ -38,7 +39,7 @@ public class Listeners extends CommonOps implements ITestListener {
                 e.printStackTrace();
             }
         }
-
+    }
 
     public void onTestSkipped(ITestResult teat)
     {
@@ -54,7 +55,7 @@ public class Listeners extends CommonOps implements ITestListener {
     public void onTestSuccess(ITestResult test)
     {
         System.out.println("---------test name:" + test.getName() + " pass-----------");
-
+        if (platform.toUpperCase(Locale.ROOT).equals("WEB")) {
             try {
                 MonteScreenRecorder.stopRecord();
             } catch (Exception e) {
@@ -68,12 +69,13 @@ public class Listeners extends CommonOps implements ITestListener {
                 System.out.println("delete fail");
             }
         }
-
+    }
 
     @Attachment(value = "screen shot", type = "image")
     public static byte[] saveScreenShot()
     {
-        return  ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
+            return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+
 
     }
 }
