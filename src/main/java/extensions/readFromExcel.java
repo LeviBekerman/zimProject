@@ -28,56 +28,53 @@ public class readFromExcel {
         Iterator<Row> iterator = firstSheet.iterator();
         int flag = 0;
 
-        while (iterator.hasNext() && flag <= cellNum) {
-            flag++;
+        while (iterator.hasNext()) {
+            int flagCell = 0;
 
             Row nextRow = iterator.next();
             Iterator<Cell> cellIterator = nextRow.cellIterator();
 
             StringSpesificLineFromExel = new HashMap<>();
-            while (cellIterator.hasNext()) {
+            while (cellIterator.hasNext() && flag <= cellNum) {
+
 
                 Cell cell = cellIterator.next();
 
                 switch (cell.getCellType()) {
 
                     case Cell.CELL_TYPE_STRING:
-                        if (flag == 1) {
+                        if (flag == 0) {
                             fieldName.add(cell.getStringCellValue());
                         } else {
                             StringSpesificLineFromExel.put(fieldName.get(cell.getColumnIndex()), cell.getStringCellValue());
                         }
                         break;
-                    case Cell.CELL_TYPE_FORMULA:
 
-                        break;
                     case Cell.CELL_TYPE_NUMERIC:
-                        if (flag == 1) {
-                            fieldName.add(cell.getStringCellValue());
+                        if (flag == 0) {
+                            fieldName.add(Double.toString(cell.getNumericCellValue()));
                         } else {
                             StringSpesificLineFromExel.put(fieldName.get(cell.getColumnIndex()),
                                     Integer.toString((int) cell.getNumericCellValue()));
-
                         }
                         break;
+
                 }
+                flagCell++;
 
             }
-            if (flag != 1) {
+            if (flag != 0) {
 
                 readFromExel.add(StringSpesificLineFromExel);
 
             }
+            flag++;
+
 
         }
-
+        System.out.println(readFromExel.toString());
         workbook.close();
         inputStream.close();
-//		for (int i = 0; i < readFromExel.size(); i++) {
-//			System.out.println(readFromExel.get(i).toString());
-//
-//		}
-
         return readFromExel;
     }
 
@@ -155,6 +152,9 @@ public class readFromExcel {
             }
 
         }
+        System.out.println(fieldName.toString());
+        System.out.println(fieldName.size());
+
         return fieldName;
     }
 

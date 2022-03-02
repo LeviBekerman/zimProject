@@ -4,8 +4,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.asserts.SoftAssert;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-
+import pageObjects.html_tables;
 
 
 public class Base {
@@ -21,7 +20,7 @@ public class Base {
 
 
     // Page object -Web
- //   protected static LoginPage grafanaLogin;
+    protected static pageObjects.html_tables html_tables;
 
 
 }

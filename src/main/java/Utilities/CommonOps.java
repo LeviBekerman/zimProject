@@ -8,7 +8,9 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
 import org.testng.asserts.SoftAssert;
 import org.w3c.dom.Document;
@@ -29,37 +31,31 @@ public class CommonOps extends Base {
     @BeforeTest
     public static void startSessions() {
         initBrowser(reedFromXml("browser", 0));
-        softAssert = new SoftAssert();
+       // softAssert = new SoftAssert();
     }
-
-
-
-
-
-
 
 
     @BeforeMethod
-    public static void beforeMethod (Method method){
+    public static void beforeMethod(Method method) {
         SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         str_testName = method.getName() + "_" + now.toString().replace("-", "_").replace(":", "_").replace(".", "_");
-            try {
-                MonteScreenRecorder.startRecord(str_testName);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
+        try {
+            MonteScreenRecorder.startRecord(str_testName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        softAssert = new SoftAssert();
     }
 
     @AfterTest
-    public static void afterSessions () {
+    public static void afterSessions() {
         //ManageDB.closeConnection();
 
-                driver.quit();
+        driver.quit();
     }
 
-    public static void initBrowser (String browser){
+    public static void initBrowser(String browser) {
 
         if (browser.toLowerCase(Locale.ROOT).equals("chrome")) {
             driver = initChromeDriver();
@@ -73,33 +69,32 @@ public class CommonOps extends Base {
         driver.manage().timeouts().implicitlyWait(Long.parseLong(reedFromXml("timeOut", 0)), TimeUnit.SECONDS);
         webDriverWait = new WebDriverWait(driver, Long.parseLong((reedFromXml("timeOut", 0))));
         System.out.println(reedFromXml("url", 0));
-        driver.get(reedFromXml("url", 0) + " !!!after url");
+        driver.get(reedFromXml("url", 0));
         driver.manage().window().maximize();
-        //ManagePages.initWeb();
+        ManagePages.initWeb();
         action = new Actions(driver);
+        softAssert = new SoftAssert();
         // WebFlows.log(reedFromXml("UserName", 0), reedFromXml("Password", 0));
         //WebFlows.log("admin", "admin");
 
     }
 
-    public static WebDriver initChromeDriver () {
+    public static WebDriver initChromeDriver() {
         WebDriverManager.chromedriver().setup();
         return driver = new ChromeDriver();
     }
 
-    public static WebDriver initFireFoxDriver () {
+    public static WebDriver initFireFoxDriver() {
         WebDriverManager.firefoxdriver().setup();
         return driver = new FirefoxDriver();
     }
 
-    public static WebDriver initIeDriver () {
+    public static WebDriver initIeDriver() {
         WebDriverManager.iedriver().setup();
         return driver = new InternetExplorerDriver();
     }
 
-
-
-    public static String reedFromXml (String value,int index){
+    public static String reedFromXml(String value, int index) {
         DocumentBuilder documentBuilder;
         Document doc = null;
         File xml = new File("./Configuration/DataConfig.xml");
