@@ -6,7 +6,7 @@
         <classes>
             <class name="html_tables">
                 <methods>
-                    <include name="veifyValuesFromExel"></include>
+                    <include name="veifyValuesFromExelStringOnly"></include>
                 </methods>
             </class>
         </classes>

@@ -30,12 +30,11 @@ public class readFromExcel {
 
         while (iterator.hasNext()) {
             int flagCell = 0;
-
             Row nextRow = iterator.next();
             Iterator<Cell> cellIterator = nextRow.cellIterator();
 
             StringSpesificLineFromExel = new HashMap<>();
-            while (cellIterator.hasNext() && flag <= cellNum) {
+            while (cellIterator.hasNext() && flagCell <= cellNum) {
 
 
                 Cell cell = cellIterator.next();
@@ -152,8 +151,6 @@ public class readFromExcel {
             }
 
         }
-        System.out.println(fieldName.toString());
-        System.out.println(fieldName.size());
 
         return fieldName;
     }

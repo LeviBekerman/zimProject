@@ -58,8 +58,10 @@ public class UIActions extends CommonOps {
     public static String getTableCellText(WebElement table, int searchColumn, String searchText, int returnColumnText) throws Exception {
         String result = "" + getTableCellTextByXpath(table, searchColumn, searchText, returnColumnText);
 
-        if (result.length() > 1 && driver.findElements(By.xpath(result)).size() != 0){
-            result = driver.findElement(By.xpath(getTableCellTextByXpath(table, searchColumn, searchText, returnColumnText))).getText();
+        if (result.length() > 1 && driver.findElements(By.xpath(getTableCellTextByXpath(table, searchColumn, searchText, returnColumnText))).size() > 0) {
+            result = driver.findElement(By.xpath(result)).getText();
+        } else {
+            result = "";
         }
 
         return result;
@@ -67,6 +69,14 @@ public class UIActions extends CommonOps {
 
     public static boolean verifyTableCellText(WebElement table, int searchColumn, String searchText, int returnColumnText, String expectedText) throws Exception {
         String result = getTableCellText(table, searchColumn, searchText, returnColumnText);
+        return extensions.Verifications.verifyIsTrue(expectedText.equals(result), "expected Text = '" + expectedText + "' but found = '" + result + "'");
+    }
+
+    public static boolean verifyTableCellText(WebElement table, String searchColumn, String searchText, String returnColumnText, String expectedText) throws Exception {
+        int getColumnNumOfSearch = getColumnNum(table, searchColumn);
+        int getReturnColumnNum = getColumnNum(table, returnColumnText);
+
+        String result = getTableCellText(table, getColumnNumOfSearch, searchText, getReturnColumnNum);
         System.out.println("expected Text = '" + expectedText + "' but found = '" + result + "'");
         System.out.println(expectedText.equals(result));
         return extensions.Verifications.verifyIsTrue(expectedText.equals(result), "expected Text = '" + expectedText + "' but found = '" + result + "'");
@@ -77,15 +87,38 @@ public class UIActions extends CommonOps {
     public static String getTableCellTextByXpath(WebElement table, int searchColumn, String searchText, int returnColumnText) throws Exception {
         String xpath = "";
         webDriverWait.until(ExpectedConditions.visibilityOf(table));
-        List<WebElement> ARRtr = table.findElements(By.xpath("//tr"));
-        for (int a = 0; a < ARRtr.size(); a++) {
-            if (ARRtr.get(a).getText().contains(searchText) && a == searchColumn) {
-                xpath = table.toString().replace("]","").split("xpath: ")[1] + "//tr[" + returnColumnText + "]"+"/td["+returnColumnText+"]";
+        String thXpath = table.toString().split("xpath: ")[1].substring(0,table.toString().split("xpath: ")[1].length() - 1);
+        List<WebElement> ARRtr = driver.findElements(By.xpath(thXpath+"//tr"));
+        for (int a = 1; a < ARRtr.size(); a++) {
+
+              if (ARRtr.get(a).getText().contains(searchText)) {
+
+                xpath = thXpath + "//tr[" + (a+1) + "]" + "/td[" + returnColumnText + "]";
                 break;
             }
         }
-        System.out.println("xpath =" + xpath);
         return xpath;
+    }
+
+
+    //
+    public static int getColumnNum(WebElement table, String ColumnName) {
+        int getColumnNum = -1;
+
+        try {
+            getColumnNum = Integer.parseInt(ColumnName);
+        } catch (Exception s) {
+            webDriverWait.until(ExpectedConditions.visibilityOf(table));
+            List<WebElement> ARRtr = table.findElements(By.xpath("//th"));
+            for (int a = 0; a < ARRtr.size() - 1; a++) {
+                if (ARRtr.get(a).getText().equals(ColumnName)) {
+                    getColumnNum = a;
+                    break;
+                }
+            }
+        }
+
+        return getColumnNum;
     }
 
 
